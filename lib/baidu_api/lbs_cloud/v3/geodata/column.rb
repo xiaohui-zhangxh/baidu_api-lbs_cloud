@@ -5,6 +5,8 @@ module BaiduApi::LbsCloud::V3::Geodata
     self.module_name = 'geodata'
     self.controller  = 'column'
 
+    add_raise_methods :create, :list, :detail, :update, :delete
+  
     def create(data)
       request('create', data, :post)
     end

@@ -4,4 +4,5 @@ module BaiduApi
 end
 
 require "baidu_api/lbs_cloud/version"
+require 'baidu_api/lbs_cloud/exceptions/failed'
 require "baidu_api/lbs_cloud/v3"

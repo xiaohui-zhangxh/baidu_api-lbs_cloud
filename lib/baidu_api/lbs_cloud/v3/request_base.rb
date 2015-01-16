@@ -28,6 +28,18 @@ module BaiduApi::LbsCloud::V3::RequestBase
       @controller
     end
 
+    def add_raise_methods(*methods)
+      methods.flatten.each do |m|
+        class_eval <<-CODE
+          def #{m}!(*args)
+            ret = #{m}(*args)
+            raise BaiduApi::LbsCloud::Exceptions::Failed.new(ret) if ret['status'] != 0
+            ret
+          end
+        CODE
+      end
+    end
+
   end
 
   attr_accessor :ak, :sk

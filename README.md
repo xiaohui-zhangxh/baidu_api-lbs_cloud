@@ -44,6 +44,10 @@ geodata.geotable.list()
 geodata.geotable.create(name: 'mytest', geotype: 3, is_published: 0)
 => {"status"=>0, "id"=>90288, "message"=>"成功"}
 
+# rails error if status is non-zero
+geodata.geotable.create!(name: 'mytest')
+BaiduApi::LbsCloud::Exceptions::Failed: geotype:参数必需
+
 # Call Geosearch APIs
 
 BaiduApi::LbsCloud::V3::Geosearch.setup ak: 'xxx', sk: 'xxx'
