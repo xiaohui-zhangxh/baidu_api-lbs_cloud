@@ -28,6 +28,9 @@ require 'baidu_api/lbs_cloud'
 # :sk is unnecessary if you are not authenticating with SN
 BaiduApi::LbsCloud::V3::Geodata.setup ak: 'xxxx', sk: 'xxxxx'
 
+# Also :ak and :sk can be Proc if you want load them dynamically
+BaiduApi::LbsCloud::V3::Geodata.setup ak: ->{ Settings.current.ak } , sk: -> { Settings.current.sk }
+
 # get geodata singleton instance
 geodata = BaiduApi::LbsCloud::V3::Geodata.instance
 

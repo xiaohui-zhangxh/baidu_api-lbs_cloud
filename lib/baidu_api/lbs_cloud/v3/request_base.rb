@@ -65,12 +65,14 @@ module BaiduApi::LbsCloud::V3::RequestBase
   end
 
   def build_query(uri, data)
-    data = data.merge(ak: ak)
+    ak_str = ak.is_a?(Proc) ? ak.call : ak
+    sk_str = sk.is_a?(Proc) ? sk.call : sk
+    data = data.merge(ak: ak_str)
     query_str = data.sort.map do |key, value|
       "#{key}=#{URI.encode(value.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))}"
     end.join('&')
-    return query_str if sk.nil?
-    sn = Digest::MD5.hexdigest(ERB::Util.url_encode("#{uri}?#{query_str}#{sk}"))
+    return query_str if sk_str.nil?
+    sn = Digest::MD5.hexdigest(ERB::Util.url_encode("#{uri}?#{query_str}#{sk_str}"))
     "#{query_str}&sn=#{sn}"
   end
 end
